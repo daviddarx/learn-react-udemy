@@ -6,14 +6,12 @@ const ExpenseForm = (props) => {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState('');
-  const [price, setPrice] = useState('');
 
   /* // Alternative to group all the useStates: 
     const [expenseData, setExpenseData ] = useState({
       title: '', 
       amount: '', 
       date: '', 
-      price: ''
     }) 
 
     // And then set with: 
@@ -36,22 +34,16 @@ const ExpenseForm = (props) => {
     setDate(e.target.value);
   };
 
-  const priceChangeHandler = (e) => {
-    setPrice(e.target.value);
-  };
-
   const submitHandler = (e) => {
     const expenseData = {
-      title: title,
-      amount: amount,
-      date: new Date(date),
-      price: price,
+      title: title || 'Default title',
+      amount: amount || '19',
+      date: (date && new Date(date)) || new Date(),
     };
 
     setTitle('');
     setAmount('');
     setDate('');
-    setPrice('');
 
     props.onSaveExpenseData(expenseData);
 
@@ -84,10 +76,6 @@ const ExpenseForm = (props) => {
             value={date}
             onChange={dateChangeHandler}
           />
-        </div>
-        <div className='new-expense__control'>
-          <label>Price</label>
-          <input type='number' value={price} onChange={priceChangeHandler} />
         </div>
       </div>
       <div className='new-expense__actions'>
