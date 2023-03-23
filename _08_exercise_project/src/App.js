@@ -5,9 +5,13 @@ import AddUser from './components/Users/AddUser';
 function App() {
   console.clear();
 
+  const addUser = (userData) => {
+    console.log('add user data: ', userData);
+  };
+
   return (
     <div>
-      <AddUser></AddUser>
+      <AddUser onUserAdd={addUser}></AddUser>
     </div>
   );
 }
