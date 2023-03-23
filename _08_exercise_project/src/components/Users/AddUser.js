@@ -1,6 +1,8 @@
 import Card from '../UI/Card';
 import Button from '../UI/Button';
 
+import './AddUser.css';
+
 export default function AddUser() {
   const submitUser = (e) => {
     console.log(e.target);
