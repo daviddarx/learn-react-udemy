@@ -9,6 +9,8 @@ export default function AddUser(props) {
   const [userName, setUserName] = useState('');
   const [userAge, setUserAge] = useState('');
 
+  let errorMessage;
+
   const updateUserName = (e) => {
     setUserName(e.target.value);
   };
@@ -17,17 +19,33 @@ export default function AddUser(props) {
     setUserAge(e.target.value);
   };
 
+  const validate = () => {
+    errorMessage = undefined;
+
+    if (userName.trim().length === 0 || userAge.trim().length === 0) {
+      errorMessage = 'Empty fields';
+    } else if (parseInt(userAge) < 0) {
+      errorMessage = 'Negative age';
+    }
+
+    return errorMessage === undefined ? true : false;
+  };
+
   const submitUser = (e) => {
-    const userData = {
-      name: userName,
-      age: userAge,
-      id: 'user' + Math.random(),
-    };
+    if (validate()) {
+      const userData = {
+        name: userName,
+        age: userAge,
+        id: 'user' + Math.random(),
+      };
 
-    props.onUserAdd(userData);
+      props.onUserAdd(userData);
 
-    setUserName('');
-    setUserAge('');
+      setUserName('');
+      setUserAge('');
+    } else {
+      props.onError(errorMessage);
+    }
 
     e.preventDefault();
   };

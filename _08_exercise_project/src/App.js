@@ -9,9 +9,13 @@ function App() {
     console.log('add user data: ', userData);
   };
 
+  const manageError = (errorMessage) => {
+    alert(errorMessage);
+  };
+
   return (
     <div>
-      <AddUser onUserAdd={addUser}></AddUser>
+      <AddUser onUserAdd={addUser} onError={manageError}></AddUser>
     </div>
   );
 }
