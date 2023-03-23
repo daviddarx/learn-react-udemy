@@ -11,7 +11,7 @@ export default function AddUser() {
   };
 
   return (
-    <Card>
+    <Card className='add-user'>
       <form onSubmit={submitUser}>
         <div>
           <label htmlFor='username'>User name</label>
