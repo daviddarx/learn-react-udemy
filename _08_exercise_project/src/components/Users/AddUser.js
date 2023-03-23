@@ -26,6 +26,9 @@ export default function AddUser(props) {
 
     props.onUserAdd(userData);
 
+    setUserName('');
+    setUserAge('');
+
     e.preventDefault();
   };
 
