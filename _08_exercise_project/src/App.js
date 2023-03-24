@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import ErrorModal from './components/UI/ErrorModal';
 import AddUser from './components/Users/AddUser';
 import UsersList from './components/Users/UsersList';
 
@@ -8,6 +9,7 @@ function App() {
     { name: 'David', age: '31', id: '1' },
     { name: 'David', age: '31', id: '2' },
   ]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const addUser = (userData) => {
     setUsersList((previous) => {
@@ -16,7 +18,11 @@ function App() {
   };
 
   const manageError = (errorMessage) => {
-    alert(errorMessage);
+    setErrorMessage(errorMessage);
+  };
+
+  const discardError = () => {
+    setErrorMessage('');
   };
 
   console.clear();
@@ -25,6 +31,9 @@ function App() {
     <div>
       <AddUser onUserAdd={addUser} onError={manageError}></AddUser>
       <UsersList users={usersList} />
+      {errorMessage.trim().length !== 0 && (
+        <ErrorModal message={errorMessage} onDiscard={discardError} />
+      )}
     </div>
   );
 }
