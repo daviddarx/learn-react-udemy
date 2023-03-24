@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import Wrapper from '../Helpers/Wrapper';
 import Card from '../UI/Card';
 import Button from '../UI/Button';
 import ErrorModal from '../UI/ErrorModal';
@@ -44,34 +45,23 @@ const AddUser = (props) => {
   };
 
   return (
-    <div>
-      {error && (
-        <ErrorModal
-          title={error.title}
-          message={error.message}
-          onConfirm={errorHandler}
-        />
-      )}
+    <Wrapper>
+      {error && <ErrorModal title={error.title} message={error.message} onConfirm={errorHandler} />}
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
-          <label htmlFor="username">Username</label>
+          <label htmlFor='username'>Username</label>
           <input
-            id="username"
-            type="text"
+            id='username'
+            type='text'
             value={enteredUsername}
             onChange={usernameChangeHandler}
           />
-          <label htmlFor="age">Age (Years)</label>
-          <input
-            id="age"
-            type="number"
-            value={enteredAge}
-            onChange={ageChangeHandler}
-          />
-          <Button type="submit">Add User</Button>
+          <label htmlFor='age'>Age (Years)</label>
+          <input id='age' type='number' value={enteredAge} onChange={ageChangeHandler} />
+          <Button type='submit'>Add User</Button>
         </form>
       </Card>
-    </div>
+    </Wrapper>
   );
 };
 
