@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import AuthContext from '../../store/auth-context';
 import classes from './Navigation.module.css';
@@ -11,19 +11,17 @@ const Navigation = (props) => {
           <nav className={classes.nav}>
             <ul>
               {ctx.isLoggedIn && (
-                <li>
-                  <a href='/'>Users</a>
-                </li>
-              )}
-              {ctx.isLoggedIn && (
-                <li>
-                  <a href='/'>Admin</a>
-                </li>
-              )}
-              {ctx.isLoggedIn && (
-                <li>
-                  <button onClick={props.onLogout}>Logout</button>
-                </li>
+                <Fragment>
+                  <li>
+                    <a href='/'>Users</a>
+                  </li>
+                  <li>
+                    <a href='/'>Admin</a>
+                  </li>
+                  <li>
+                    <button onClick={props.onLogout}>Logout</button>
+                  </li>
+                </Fragment>
               )}
             </ul>
           </nav>
