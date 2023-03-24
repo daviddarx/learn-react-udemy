@@ -31,30 +31,30 @@ const passwordReducer = (prevState, action) => {
 const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
-  const [emailState, dispatchEmail] = useReducer(emailReducer, { value: '', isValid: null });
+  const [emailState, dispatchEmail] = useReducer(emailReducer, { value: '', isValid: undefined });
   const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
     value: '',
-    isValid: null,
+    isValid: undefined,
   });
 
-  // useEffect(() => {
-  //   const formValidationTimeout = setTimeout(() => {
-  //     setFormIsValid(enteredEmail.includes('@') && enteredPassword.trim().length > 6);
-  //   }, 500);
+  useEffect(() => {
+    const formValidationTimeout = setTimeout(() => {
+      setFormIsValid(emailState.isValid && passwordState.isValid);
+    }, 500);
 
-  //   // return a clean-up function, which will be executed before the next useEffect update.
-  //   return () => {
-  //     clearTimeout(formValidationTimeout);
-  //   };
-  // }, [enteredEmail, enteredPassword]);
+    // return a clean-up function, which will be executed before the next useEffect update.
+    return () => {
+      clearTimeout(formValidationTimeout);
+    };
+  }, [emailState, passwordState]);
+
+  console.log(formIsValid);
 
   const emailChangeHandler = (event) => {
     dispatchEmail({
       type: 'USER_INPUT',
       value: event.target.value,
     });
-
-    setFormIsValid(emailState.isValid && passwordState.isValid);
   };
 
   const passwordChangeHandler = (event) => {
@@ -62,12 +62,9 @@ const Login = (props) => {
       type: 'USER_INPUT',
       value: event.target.value,
     });
-
-    setFormIsValid(passwordState.isValid && emailState.isValid);
   };
 
   const validateEmailHandler = () => {
-    // value isn't needed here, as it's called onBlur
     dispatchEmail({ type: 'BLUR_INPUT' });
   };
 
