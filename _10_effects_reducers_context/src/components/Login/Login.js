@@ -37,27 +37,16 @@ const Login = (props) => {
     isValid: undefined,
   });
 
-  /**
-   * create variables for emailState.isValid and passWordState.isValid in order
-   * to be able to listen only their change in useEffect, and not the changes of the full objects
-   * emailState and passWordState
-   */
-  const { isValid: isEmailValid } = emailState; // destructuring with alias
-  const { isValid: isPasswordValid } = passwordState;
-
-  console.log('----form valid: ', formIsValid);
-
   useEffect(() => {
     const formValidationTimeout = setTimeout(() => {
-      setFormIsValid(isEmailValid && isPasswordValid);
-      console.log('TEST FORM: ', isEmailValid && isPasswordValid);
+      setFormIsValid(emailState.isValid && passwordState.isValid);
     }, 500);
 
     // return a clean-up function, which will be executed before the next useEffect update.
     return () => {
       clearTimeout(formValidationTimeout);
     };
-  }, [isEmailValid, isPasswordValid]);
+  }, [emailState.isValid, passwordState.isValid]);
 
   const emailChangeHandler = (event) => {
     dispatchEmail({
