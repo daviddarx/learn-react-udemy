@@ -7,14 +7,12 @@ import Button from '../UI/Button/Button';
 // reduction function outside of component, as we won't need anything of the component inside it.
 // all the needed data will be passed in the function when executed.
 const emailReducer = (prevState, action) => {
-  // depending on action content
   if (action.type === 'USER_INPUT') {
     return { value: action.value, isValid: action.value.includes('@') };
   }
   if (action.type === 'BLUR_INPUT') {
     return { value: prevState.value, isValid: prevState.value.includes('@') };
   }
-  // default value
   return { value: '', isValid: false };
 };
 
@@ -31,8 +29,6 @@ const passwordReducer = (prevState, action) => {
 };
 
 const Login = (props) => {
-  // const [enteredEmail, setEnteredEmail] = useState('');
-  // const [emailIsValid, setEmailIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, { value: '', isValid: null });
@@ -53,7 +49,6 @@ const Login = (props) => {
   // }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
-    // setEnteredEmail(event.target.value);
     dispatchEmail({
       type: 'USER_INPUT',
       value: event.target.value,
@@ -72,10 +67,8 @@ const Login = (props) => {
   };
 
   const validateEmailHandler = () => {
-    // setEmailIsValid(emailState.isValid);
-    dispatchEmail({
-      type: 'BLUR_INPUT', // value isn't needed here, as it's called onBlur
-    });
+    // value isn't needed here, as it's called onBlur
+    dispatchEmail({ type: 'BLUR_INPUT' });
   };
 
   const validatePasswordHandler = () => {
