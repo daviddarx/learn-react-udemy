@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 
 const CartContext = React.createContext({
   items: [],
@@ -7,35 +7,47 @@ const CartContext = React.createContext({
   removeItem: (id) => {},
 });
 
+const defaultCartState = {
+  items: [],
+  totalAmount: 0,
+};
+
+const cartReducer = (prevState, action) => {
+  if (action.type === 'ADD') {
+    const updatedItems = prevState.items.concat(action.item);
+    const updatedTotalAmount = prevState.totalAmount + action.item.price * action.item.amount;
+
+    return { items: updatedItems, totalAmount: updatedTotalAmount };
+  }
+
+  if (action.type === 'REMOVE') {
+  }
+
+  return defaultCartState;
+};
+
 export const CartContextProvider = ({ children }) => {
+  const [cartState, dispatchCart] = useReducer(cartReducer, defaultCartState);
+
   const addItem = (item) => {
-    console.log('add item');
+    dispatchCart({
+      type: 'ADD',
+      item: item,
+    });
   };
 
   const removeItem = (id) => {
-    console.log('remove item');
+    dispatchCart({
+      type: 'REMOVE',
+      id: id,
+    });
   };
 
   return (
     <CartContext.Provider
       value={{
-        items: [
-          {
-            id: 'm1',
-            name: 'asdasdsadasdasd',
-            description: 'Finest fish and veggies',
-            price: 22.99,
-            amount: 2,
-          },
-          {
-            id: 'm2',
-            name: 'Schnitzel',
-            description: 'A german specialty!',
-            price: 16.5,
-            amount: 1,
-          },
-        ],
-        totalAmount: 0,
+        items: cartState.items,
+        totalAmount: cartState.totalAmount,
         addItem: addItem,
         removeItem: removeItem,
       }}
