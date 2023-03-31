@@ -2,7 +2,7 @@ import Modal from '../Layout/Modal';
 
 import classes from './Cart.module.css';
 
-const Cart = () => {
+const Cart = ({ onClose }) => {
   const cartItems = [
     {
       id: 'm1',
@@ -21,7 +21,7 @@ const Cart = () => {
   ];
 
   return (
-    <Modal>
+    <Modal onClose={onClose}>
       <ul className={classes['cart-items']}>
         {cartItems.map((item) => {
           return <li key={item.id}>{item.name}</li>;
@@ -32,8 +32,12 @@ const Cart = () => {
         <span>$35.63</span>
       </div>
       <div className={classes.actions}>
-        <button className={classes['button--alt']}>Close</button>
-        <button className={classes['button']}>Order</button>
+        <button className={classes['button--alt']} onClick={onClose}>
+          Close
+        </button>
+        <button className={classes['button']} onClick={onClose}>
+          Order
+        </button>
       </div>
     </Modal>
   );

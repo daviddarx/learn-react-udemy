@@ -8,7 +8,7 @@ const HeaderCartButton = ({ onClick }) => {
       <span>
         <CartIcon className={classes.icon} />
       </span>
-      <span>Your card</span>
+      <span>Your cart</span>
       <span className={classes.badge}>3</span>
     </button>
   );
