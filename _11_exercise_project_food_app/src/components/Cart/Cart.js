@@ -14,7 +14,7 @@ const Cart = ({ onClose }) => {
   };
 
   const addItem = (item) => {
-    cartCtx.addItem(item);
+    cartCtx.addItem({ ...item, amount: 1 }); // with this interface, we can only add one at a time
   };
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;

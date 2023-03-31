@@ -14,13 +14,31 @@ const defaultCartState = {
 
 const cartReducer = (prevState, action) => {
   if (action.type === 'ADD') {
-    const updatedItems = prevState.items.concat(action.item);
-    const updatedTotalAmount = prevState.totalAmount + action.item.price * action.item.amount;
+    let updatedItems, updatedTotalAmount;
+
+    const currentItems = [...prevState.items];
+
+    const existingItem = currentItems.find((item) => {
+      return item.id === action.item.id;
+    });
+
+    if (existingItem) {
+      existingItem.amount += action.item.amount;
+
+      updatedItems = currentItems;
+      updatedTotalAmount = updatedItems.reduce((prevAmount, item) => {
+        return prevAmount + item.price * item.amount;
+      }, 0);
+    } else {
+      updatedItems = currentItems.concat(action.item);
+      updatedTotalAmount = prevState.totalAmount + action.item.price * action.item.amount;
+    }
 
     return { items: updatedItems, totalAmount: updatedTotalAmount };
   }
 
   if (action.type === 'REMOVE') {
+    return prevState;
   }
 
   return defaultCartState;
