@@ -1,10 +1,15 @@
+import { useContext } from 'react';
+
+import CartContext from '../../store/cart-context';
 import Input from '../UI/Input';
 
 import classes from './MealItemForm.module.css';
 
 const MealItemControl = ({ id }) => {
+  const cartCtx = useContext(CartContext);
+
   const submitHandler = (e) => {
-    console.log('Submit: ');
+    cartCtx.addItem({});
     e.preventDefault();
     return;
   };
