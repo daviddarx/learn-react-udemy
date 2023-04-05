@@ -19,7 +19,7 @@ function App() {
        * The response has a built-in .json() method, to transform the json into a javascript object.
        * The .json() method also return a responsive, which we listen with the second then();
        */
-      const response = await fetch('https://swapi.dev/api/film/');
+      const response = await fetch('https://swapi.dev/api/films/');
 
       if (!response.ok) {
         throw new Error('Something went wrong');
