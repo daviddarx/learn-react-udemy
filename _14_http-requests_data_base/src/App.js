@@ -5,8 +5,11 @@ import './App.css';
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function fetchMovies() {
+    setIsLoading(true);
+
     /**
      * Fetch return a responve, which we listen with the first then().
      * The response has a built-in .json() method, to transform the json into a javascript object.
@@ -25,6 +28,7 @@ function App() {
     });
 
     setMovies(transformedMovies);
+    setIsLoading(false);
   }
 
   return (
@@ -33,7 +37,9 @@ function App() {
         <button onClick={fetchMovies}>Fetch Movies</button>
       </section>
       <section>
-        <MoviesList movies={movies} />
+        {isLoading && <p>Is loading...</p>}
+        {!isLoading && movies.length > 0 && <MoviesList movies={movies} />}
+        {!isLoading && movies.length === 0 && <p>No film loaded.</p>}
       </section>
     </React.Fragment>
   );
