@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import MoviesList from './components/MoviesList';
 import './App.css';
@@ -8,7 +8,14 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  async function fetchMovies() {
+  /**
+   * Use useCallback as we pass fetchMovies to useEffect
+   * to fetch the movies on page load. We pass it just
+   * as an example as in some use cases, this function could
+   * be changed according to external state. We could also just
+   * let an empty array [] for useEffect, in our case.
+   */
+  const fetchMovies = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
@@ -42,7 +49,11 @@ function App() {
     }
 
     setIsLoading(false);
-  }
+  }, []);
+
+  useEffect(() => {
+    fetchMovies();
+  }, [fetchMovies]);
 
   return (
     <React.Fragment>
