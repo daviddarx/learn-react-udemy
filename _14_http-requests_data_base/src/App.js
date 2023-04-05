@@ -27,7 +27,9 @@ function App() {
        * The response has a built-in .json() method, to transform the json into a javascript object.
        * The .json() method also return a responsive, which we listen with the second then();
        */
-      const response = await fetch('https://swapi.dev/api/films/');
+      const response = await fetch(
+        'https://react-http-d10a2-default-rtdb.firebaseio.com/movies.json',
+      );
 
       if (!response.ok) {
         throw new Error('Something went wrong');
@@ -35,16 +37,18 @@ function App() {
 
       const data = await response.json();
 
-      const transformedMovies = data.results.map((item) => {
-        return {
-          id: item.episode_id,
-          title: item.title,
-          openingText: item.opening_crawl,
-          releaseDate: item.release_date,
-        };
-      });
+      const loadedMovies = [];
 
-      setMovies(transformedMovies);
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate,
+        });
+      }
+
+      setMovies(loadedMovies);
     } catch (error) {
       setError(error.message);
     }
@@ -55,6 +59,25 @@ function App() {
   useEffect(() => {
     fetchMovies();
   }, [fetchMovies]);
+
+  async function addMovie(movie) {
+    const response = await fetch(
+      'https://react-http-d10a2-default-rtdb.firebaseio.com/movies.json',
+      {
+        method: 'POST',
+        body: JSON.stringify(movie),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    const data = await response.json();
+
+    console.log(data);
+
+    fetchMovies();
+  }
 
   return (
     <React.Fragment>
