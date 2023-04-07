@@ -44,7 +44,12 @@ const Checkout = (props) => {
       return;
     }
 
-    console.log('Order confirmed');
+    props.onSubmitOrder({
+      name: nameInput.current.value,
+      street: streetInput.current.value,
+      postal: postalInput.current.value,
+      city: cityInput.current.value,
+    });
   };
 
   return (

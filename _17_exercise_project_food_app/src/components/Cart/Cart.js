@@ -29,6 +29,26 @@ const Cart = (props) => {
     setIsCheckoutDisplayed(false);
   };
 
+  const submitOrder = async (userData) => {
+    const response = await fetch(
+      'https://react-http-d10a2-default-rtdb.firebaseio.com/orders.json',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          food: cartCtx.items,
+          user: userData,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    const responseData = await response.json();
+
+    console.log(responseData);
+  };
+
   const cartItems = (
     <ul className={classes['cart-items']}>
       {cartCtx.items.map((item) => (
@@ -51,7 +71,7 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isCheckoutDisplayed && <Checkout onCancel={hideCheckout} />}
+      {isCheckoutDisplayed && <Checkout onCancel={hideCheckout} onSubmitOrder={submitOrder} />}
       {!isCheckoutDisplayed && (
         <div className={classes.actions}>
           <button className={classes['button--alt']} onClick={props.onClose}>
