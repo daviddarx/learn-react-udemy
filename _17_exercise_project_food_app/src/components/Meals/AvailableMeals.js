@@ -5,24 +5,41 @@ import MealItem from './MealItem/MealItem';
 import classes from './AvailableMeals.module.css';
 
 const AvailableMeals = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const [meals, setMeals] = useState([]);
 
   const retrieveData = useCallback(async () => {
-    const response = await fetch('https://react-http-d10a2-default-rtdb.firebaseio.com/meals.json');
-    const responseData = await response.json();
+    setIsLoading(true);
 
-    const loadedMeals = [];
+    try {
+      const response = await fetch(
+        'https://react-http-d10a2-default-rtdb.firebaseio.com/meals.json',
+      );
 
-    /* Firebase data is an object, we need to transform data */
-    for (const key in responseData) {
-      loadedMeals.push({
-        id: responseData[key].id,
-        name: responseData[key].name,
-        description: responseData[key].description,
-        price: responseData[key].price,
-      });
+      if (!response.ok) {
+        throw new Error('Something went wrong');
+      }
+
+      const responseData = await response.json();
+
+      const loadedMeals = [];
+
+      /* Firebase data is an object, we need to transform data */
+      for (const key in responseData) {
+        loadedMeals.push({
+          id: responseData[key].id,
+          name: responseData[key].name,
+          description: responseData[key].description,
+          price: responseData[key].price,
+        });
+      }
+
+      setMeals(loadedMeals);
+      setIsLoading(false);
+    } catch (error) {
+      setError(error.message);
     }
-    setMeals(loadedMeals);
   }, []);
 
   useEffect(() => {
@@ -42,7 +59,9 @@ const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
       <Card>
-        <ul>{mealsList}</ul>
+        {error && <p>{error}</p>}
+        {!error && isLoading && <p>LOADING MEALS ...</p>}
+        {!error && !isLoading && <ul>{mealsList}</ul>}
       </Card>
     </section>
   );
