@@ -1,27 +1,26 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import useHttp from './hooks/use-http';
 import Tasks from './components/Tasks/Tasks';
 import NewTask from './components/NewTask/NewTask';
 
 function App() {
-  const [isLoading, error, sendRequest] = useHttp();
+  const { isLoading, error, sendRequest: fetchTasks } = useHttp();
   const [tasks, setTasks] = useState([]);
 
-  const fetchTasks = useCallback((taskText) => {
-    sendRequest('https://react-http-d10a2-default-rtdb.firebaseio.com/tasks.json', null, (data) => {
-      const loadedTasks = [];
-
-      for (const taskKey in data) {
-        loadedTasks.push({ id: taskKey, text: data[taskKey].text });
-      }
-
-      setTasks(loadedTasks);
-    });
-  }, []);
-
   useEffect(() => {
-    fetchTasks();
+    fetchTasks(
+      { url: 'https://react-http-d10a2-default-rtdb.firebaseio.com/tasks.json' },
+      (taskObject) => {
+        const loadedTasks = [];
+
+        for (const taskKey in taskObject) {
+          loadedTasks.push({ id: taskKey, text: taskObject[taskKey].text });
+        }
+
+        setTasks(loadedTasks);
+      },
+    );
   }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
