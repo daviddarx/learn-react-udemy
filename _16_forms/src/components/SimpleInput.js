@@ -1,52 +1,39 @@
-import { useState } from 'react';
+import useInput from '../hooks/use-input';
 
 const SimpleInput = (props) => {
-  const [isNameTouched, setIsNameTouched] = useState(false);
-  const [name, setName] = useState('');
+  const {
+    value: name,
+    isValueValid: isNameValid,
+    isInputInvalid: isNameInputValid,
+    onInputChange: onNameChange,
+    onInputBlur: onNameBlur,
+    resetInput: resetNameInput,
+  } = useInput((value) => {
+    return value.trim().length !== 0;
+  });
 
-  const [isEmailTouched, setIsEmailTouched] = useState(false);
-  const [email, setEmail] = useState('');
-
-  const isNameValid = name.trim().length !== 0;
-  const isNameInputValid = !isNameValid && isNameTouched;
-
-  const isEmailValid = email.trim().length !== 0 && email.includes('@');
-  const isEmailInputValid = !isEmailValid && isEmailTouched;
+  const {
+    value: email,
+    isValueValid: isEmailValid,
+    isInputInvalid: isEmailInputValid,
+    onInputChange: onEmailChange,
+    onInputBlur: onEmailBlur,
+    resetInput: resetEmailInput,
+  } = useInput((value) => {
+    return value.trim().length !== 0 && value.includes('@');
+  });
 
   const isFormValid = isNameValid && isEmailValid;
 
-  const onNameChange = (e) => {
-    setIsNameTouched(true);
-    setName(e.target.value);
-  };
-
-  const onNameBlur = (e) => {
-    setIsNameTouched(true);
-  };
-
-  const onEmailChange = (e) => {
-    setIsEmailTouched(true);
-    setEmail(e.target.value);
-  };
-
-  const onEmailBlur = (e) => {
-    setIsEmailTouched(true);
-  };
-
   const submitForm = (e) => {
     e.preventDefault();
-
-    setIsNameTouched(true);
 
     if (!isFormValid) {
       return;
     }
 
-    setIsNameTouched(false);
-    setName('');
-
-    setIsEmailTouched(false);
-    setEmail('');
+    resetNameInput();
+    resetEmailInput();
   };
 
   return (
