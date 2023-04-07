@@ -38,6 +38,7 @@ const AvailableMeals = () => {
       setMeals(loadedMeals);
       setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       setError(error.message);
     }
   }, []);
