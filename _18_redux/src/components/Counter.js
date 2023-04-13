@@ -7,6 +7,7 @@ const Counter = () => {
    * React-redux will automatically set a subscriber for this to get the state updated.
    */
   const counter = useSelector((state) => state.counter);
+  const shown = useSelector((state) => state.shown);
 
   /**
    * Retrieve a function to dispatch the actions.
@@ -26,13 +27,13 @@ const Counter = () => {
   };
 
   const toggleCounterHandler = () => {
-    console.log('counter');
+    dispatchFn({ type: 'toggle' });
   };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {shown && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={increaseHandler.bind(null, 5)}>Increase by 5</button>
