@@ -6,11 +6,20 @@ const redux = require('redux');
  * Same input leads to same output.
  */
 const counterReducer = (state = { counter: 0 }, action) => {
-  // action.type should be handled here.
+  if (action.type === 'increment') {
+    return {
+      counter: state.counter + 1,
+    };
+  }
 
-  return {
-    counter: state.counter + 1,
-  };
+  if (action.type === 'decrement') {
+    return {
+      counter: state.counter - 1,
+    };
+  }
+
+  // return the default/current state
+  return state;
 };
 
 /**
@@ -38,3 +47,4 @@ store.subscribe(counterSubscriber);
  * Create and dispatch an action.
  */
 store.dispatch({ type: 'increment' });
+store.dispatch({ type: 'decrement' });
