@@ -4,6 +4,7 @@ const uiSlice = createSlice({
   name: 'ui',
   initialState: {
     isCartShown: true,
+    notification: null,
   },
   reducers: {
     showCart(state) {
@@ -14,6 +15,13 @@ const uiSlice = createSlice({
     },
     toggleCart(state) {
       state.isCartShown = !state.isCartShown;
+    },
+    showNotification(state, action) {
+      state.notification = {
+        status: action.payload.status,
+        title: action.payload.title,
+        message: action.payload.message,
+      };
     },
   },
 });
