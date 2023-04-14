@@ -7,8 +7,8 @@ const Counter = () => {
    * Pick the part of the state that we want.
    * React-redux will automatically set a subscriber for this to get the state updated.
    */
-  const counter = useSelector((state) => state.counter);
-  const shown = useSelector((state) => state.shown);
+  const counter = useSelector((state) => state.counter.counter);
+  const shown = useSelector((state) => state.counter.shown);
 
   /**
    * Retrieve a function to dispatch the actions.
