@@ -72,7 +72,12 @@ export const fetchCartData = () => {
 
       const responseData = await response.json();
 
-      dispatch(cartActions.replaceCart(responseData));
+      dispatch(
+        cartActions.replaceCart({
+          items: responseData.items || [],
+          totalQuantity: responseData.totalQuantity,
+        }),
+      );
     } catch (error) {
       dispatch(
         uiActions.showNotification({
