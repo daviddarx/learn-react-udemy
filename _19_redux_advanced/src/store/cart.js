@@ -5,6 +5,7 @@ const cartSlice = createSlice({
   initialState: {
     items: [],
     totalQuantity: 0,
+    localyChanged: false,
   },
   reducers: {
     addItem(state, action) {
@@ -26,6 +27,8 @@ const cartSlice = createSlice({
       }
 
       state.totalQuantity++;
+
+      state.localyChanged = true;
     },
     removeItem(state, action) {
       const itemId = action.payload;
@@ -40,10 +43,14 @@ const cartSlice = createSlice({
       }
 
       state.totalQuantity--;
+
+      state.localyChanged = true;
     },
     replaceCart(state, action) {
       state.items = action.payload.items;
       state.totalQuantity = action.payload.totalQuantity;
+
+      state.localyChanged = false;
     },
   },
 });
