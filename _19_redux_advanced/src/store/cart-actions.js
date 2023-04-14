@@ -1,4 +1,5 @@
 import { uiActions } from './ui';
+import { cartActions } from './cart';
 
 /**
  * Custom action-creators with thunk.
@@ -49,6 +50,32 @@ export const sendCartData = (cart) => {
           status: 'error',
           title: 'Error',
           message: 'Sending cart data failed.',
+        }),
+      );
+    }
+  };
+};
+
+export const fetchCartData = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        'https://react-http-d10a2-default-rtdb.firebaseio.com/cart.json',
+      );
+
+      if (!response.ok) {
+        throw new Error('Could not fetch data');
+      }
+
+      const responseData = await response.json();
+
+      dispatch(cartActions.replaceCart(responseData));
+    } catch (error) {
+      dispatch(
+        uiActions.showNotification({
+          status: 'error',
+          title: 'Error',
+          message: 'Fetching cart data failed.',
         }),
       );
     }

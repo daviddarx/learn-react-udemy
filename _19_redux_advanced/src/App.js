@@ -1,7 +1,7 @@
 import { useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { sendCartData } from './store/cart-actions';
+import { sendCartData, fetchCartData } from './store/cart-actions';
 
 import Cart from './components/Cart/Cart';
 import Layout from './components/Layout/Layout';
@@ -20,6 +20,8 @@ function App() {
   useEffect(() => {
     if (isInitial) {
       isInitial = false;
+
+      dispatch(fetchCartData());
       return;
     }
 
