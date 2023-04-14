@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const uiSlice = createSlice({
   name: 'ui',
   initialState: {
-    isCartShown: false,
+    isCartShown: true,
   },
   reducers: {
     showCart(state) {
