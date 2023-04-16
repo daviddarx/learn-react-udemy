@@ -1,12 +1,1 @@
-{
-  "events": [
-    {
-      "title": "A new event",
-      "image": "https://cdn.muenchen-p.de/fl_progressive,q_65/.imaging/stk/responsive/teaser300/dms/va-2016/muenchner-christkindlmarkt/christkindlmarkt-marienplat-logo-hp/document/christkindlmarkt-marienplat-logo-hp.jpg",
-      "date": "2022-10-01",
-      "description": "Some awesome event!",
-      "id": "2a42fcc4-ea21-4bdd-abf6-c40006dc66a9"
-    }
-  ],
-  "users": []
-}
+{"events":[{"title":"asdasdasd","image":"https://meeting.zuerich.com/sites/default/files/styles/2816_1200_focal_scale_crop/public/web_zurich_venue_gasthaus-albisguetli_pt_30745.jpg?h=1597416073","date":"2023-04-22","description":"asdasd","id":"24586a0d-b918-4033-a497-8b4700a1ff02"}],"users":[{"email":"asdasd@asdasdasd.com","password":"$2a$12$.nIpSbh8nw/NKsdUnwhYMO84a8/Rb1cSXD9owqgutsP49rv3HcMz6","id":"ed313b9d-32ae-4396-9a8e-aae138cd17b9"},{"email":"asdasd@asdasd.com","password":"$2a$12$WgCuvQPkxrDt/nQ9e3lLmOaWyofLmfIBqfgBhD1liGEe.Ny26bqz6","id":"6da2396d-3a98-4a86-9174-d0904814df58"},{"email":"asd@asdasd.com","password":"$2a$12$YC0kc03Z7TOWXxu5DoP6AuAt0PaXMl7CIzXtnUmWn6xEbQXzCIwP.","id":"8a743c86-0167-4cf7-a5bf-79eeb66d9b9b"},{"email":"asdasdassd@asdasdad.com","password":"$2a$12$elvZN5erX13C5MPHPwr3GuNH6V/4UjNvSzt6j82xNRFLK1OYEOAAy","id":"741cc0fe-b636-4838-86d9-c19b3251af30"},{"email":"test@test.com","password":"$2a$12$xX.mNQX5jQNI9dgTHMDD3.5WBS6WHtNodCNe2Aoo/EQpcWBgbghDi","id":"baea56b2-0475-46c8-a28d-b523f95bdcf7"},{"email":"testasdad@asd.com","password":"$2a$12$fH8iJWcAC0JGNA6BFLLBpe4ekGzl0/977rqLhozzo48xYmU8pO8eq","id":"83ef5902-ee0b-4c86-b6ce-7999d1b8b6ae"},{"email":"1@1.com","password":"$2a$12$vQjwCQsi7n9jBU48eJbgt.NV0TM/UvMZsfahmbbfp8gVF0z8FgCzy","id":"75b49dc5-955f-4a0a-812b-72da57a1a7d5"},{"email":"2@2.com","password":"$2a$12$hOV2xXK1t.D8vhyP213TbeaidZ/hBMCbpd2tM3/Kzwc5gLJrpvn1G","id":"3bde0cfc-8e2c-4ea5-89fc-8f9969d812a3"}]}
