@@ -33,6 +33,7 @@ export function getStaticProps() {
     props: {
       meetups: DUMMY_MEETUPS,
     },
+    revalidate: 10, // interval in second, for NextJS to regenerate the content
   };
 }
 
