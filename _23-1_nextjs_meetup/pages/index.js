@@ -1,11 +1,15 @@
+import { Fragment } from 'react';
+import Head from 'next/head';
 import { MongoClient } from 'mongodb';
 
-import { Fragment } from 'react';
 import MeetupList from '../components/meetups/MeetupList';
 
 const HomePage = (props) => {
   return (
     <Fragment>
+      <Head>
+        <title>Meetup - Home</title>
+      </Head>
       <MeetupList meetups={props.meetups}></MeetupList>
     </Fragment>
   );
