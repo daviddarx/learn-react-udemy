@@ -28,6 +28,21 @@ const HomePage = (props) => {
   );
 };
 
+// SSR SERVER SIDE RENDERING
+// export async function getServerSideProps(context) {
+//   const request = context.req;
+//   const response = context.res;
+
+//   // fetch data from an API
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//   };
+// }
+
+// SSG STATIC SITE GENERATION
+// ISG INCREMENTAL STATIC GENERATIOn
 export function getStaticProps() {
   return {
     props: {
