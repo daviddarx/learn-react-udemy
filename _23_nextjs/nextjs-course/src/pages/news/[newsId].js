@@ -1,9 +1,14 @@
+import { Fragment } from 'react';
 import { useRouter } from 'next/router';
 
 const DetailPage = () => {
   const router = useRouter();
 
-  return <p>I am the news detail page: {router.query.newsId}</p>;
+  return (
+    <Fragment>
+      <h1>News detail: {router.query.newsId}</h1>
+    </Fragment>
+  );
 };
 
 export default DetailPage;
