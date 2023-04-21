@@ -1,13 +1,15 @@
+import { MongoClient } from 'mongodb';
+
 import MeetupDetail from './../../components/meetups/MeetupDetail';
 
 const MeetupDetailPage = (props) => {
   return (
     <MeetupDetail
-      id={props.id}
-      title={props.title}
-      address={props.address}
-      description={props.description}
-      image={props.image}
+      id={props.meetupData.id}
+      title={props.meetupData.title}
+      address={props.meetupData.address}
+      description={props.meetupData.description}
+      image={props.meetupData.image}
     />
   );
 };
@@ -18,16 +20,19 @@ const MeetupDetailPage = (props) => {
  * versions of this page. We have to export all the possible used IDs
  */
 export async function getStaticPaths() {
+  const client = await MongoClient.connect(
+    'mongodb+srv://daviddarx:SGBwPguPLpKuOGcj@cluster0.tlig6oe.mongodb.net/meetups?retryWrites=true&w=majority',
+  );
+
+  const db = client.db();
+  const meetupsCollection = db.collection('meetups');
+  const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray(); // first {} would be for filtering
+
+  client.close();
+
   return {
     // list of all pathes
-    paths: [
-      {
-        params: { meetupID: 'm1' },
-      },
-      {
-        params: { meetupID: 'm2' },
-      },
-    ],
+    paths: meetups.map((meetup) => ({ params: { meetupID: meetup._id.toString() } })),
     /**
      * The fallback indicate if the paths[] contains all the possible id's (false).
      * If true, NextJS will pregenerating the missing ones dynamically when the requests arrive.
@@ -37,19 +42,29 @@ export async function getStaticPaths() {
   };
 }
 
-export function getStaticProps(context) {
+export async function getStaticProps(context) {
   const meetupID = context.params.meetupID;
 
-  console.log(meetupID);
+  const client = await MongoClient.connect(
+    'mongodb+srv://daviddarx:SGBwPguPLpKuOGcj@cluster0.tlig6oe.mongodb.net/meetups?retryWrites=true&w=majority',
+  );
+
+  const db = client.db();
+  const meetupsCollection = db.collection('meetups');
+  const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray(); // first {} would be for filtering
+  const selectedMeetup = meetups.find((meetup) => meetup._id.toString() === meetupID);
+  client.close();
 
   return {
     props: {
-      id: meetupID,
-      title: 'Title',
-      address: 'Zurich',
-      description: 'Meetup description',
-      image:
-        'https://www.zuerich.com/sites/default/files/styles/683_512_focal_scale_crop/public/image/2021/web_zurich_general_key_ZT_21257_1600x900.jpg',
+      meetupData: {
+        id: meetupID,
+        title: selectedMeetup.title,
+        address: selectedMeetup.address,
+        image:
+          'https://www.zuerich.com/sites/default/files/styles/683_512_focal_scale_crop/public/image/2021/web_zurich_general_key_ZT_21257_1600x900.jpg', //selectedMeetup.image,
+        description: selectedMeetup.description,
+      },
     },
     revalidate: 10,
   };
