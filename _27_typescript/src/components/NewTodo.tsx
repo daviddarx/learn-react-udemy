@@ -1,6 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
 
-const NewTodo: React.FC<{ onAddTodo: (text: string) => void }> = (props) => {
+import { TodosContext } from '../store/todos-context';
+
+const NewTodo: React.FC = () => {
+  const todosContext = useContext(TodosContext);
+
   /**
    * Need to specify which element we want to store.
    *  - HTMLInputElement is a built-in type.
@@ -25,7 +29,7 @@ const NewTodo: React.FC<{ onAddTodo: (text: string) => void }> = (props) => {
       return;
     }
 
-    props.onAddTodo(entededText);
+    todosContext.addTodo(entededText);
   };
 
   /**
