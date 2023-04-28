@@ -1,7 +1,13 @@
-import './App.css';
+import Todos from './components/Todos';
 
 function App() {
-  return <div className='App'>test</div>;
+  const items = ['Todo 1', 'Todo 2', 'Todo 3'];
+
+  return (
+    <div className='App'>
+      <Todos items={items} />
+    </div>
+  );
 }
 
 export default App;
