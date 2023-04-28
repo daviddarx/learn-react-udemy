@@ -1,8 +1,8 @@
 import Todos from './components/Todos';
+import Todo from './models/todo';
 
 function App() {
-  const items = ['Todo 1', 'Todo 2', 'Todo 3'];
-
+  const items = [new Todo('todo 1'), new Todo('todo 2'), new Todo('todo 3')];
   return (
     <div className='App'>
       <Todos items={items} />
