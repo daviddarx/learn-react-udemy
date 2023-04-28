@@ -1,4 +1,5 @@
 import Todo from './../models/todo';
+import TodoItem from './TodoItem';
 
 /**
  * Custom type for custom props, merged with FC props
@@ -17,7 +18,7 @@ const Todos: React.FC<Props> = (props) => {
   return (
     <ul>
       {props.items.map((item) => (
-        <li key={item.id}>{item.text}</li>
+        <TodoItem key={item.id} text={item.text} />
       ))}
     </ul>
   );
